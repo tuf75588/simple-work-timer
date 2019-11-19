@@ -10,14 +10,19 @@ function startTimer(milliseconds, displayElement) {
   const now = Date.now();
   const then = Date.now() + milliseconds * 1000;
   let difference;
+
   // eslint-disable-next-line no-use-before-define
   displayEndTime(then);
   // function our interval will run on
   function timer() {
     difference = Math.round(milliseconds - (Date.now() - now) / 1000);
+    if (difference < 0) {
+      return;
+    }
     // eslint-disable-next-line no-use-before-define
     const { minutes, seconds } = displayTimer(difference);
-    /*  eslint-disable-next-line */
+
+    // eslint-disable-next-line
     displayElement.textContent = `${minutes}:${seconds}`;
     document.title = `${minutes}:${seconds}`;
   }
